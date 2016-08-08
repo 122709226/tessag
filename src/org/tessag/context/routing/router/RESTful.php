@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2015/11/3
- * Time: 10:24
+ * Created by @panyao on 2016/7/15.
+ * @author panyao
+ * @coding.net https://coding.net/u/pandaxia
  */
 namespace org\tessag\context\routing\router;
 

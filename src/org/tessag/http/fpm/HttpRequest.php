@@ -2,7 +2,6 @@
 /**
  * Created by @panyao on 2016/7/18.
  * @author panyao
- * @email sunny17178@163.com
  * @coding.net https://coding.net/u/pandaxia
  */
 
