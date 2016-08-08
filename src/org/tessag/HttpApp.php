@@ -22,10 +22,10 @@ class HttpApp
     {
         $this->router = $router;
         $this->controller = new ControllerHandler();
-        $this->setControllerExceptionHandler(function(IRequest $request, IResponse $response, \Exception $ex){
+        $this->setControllerExceptionHandler(function (IRequest $request, IResponse $response, \Exception $ex) {
 
         });
-        $this->setExceptionHandler(function(IRequest $request, IResponse $response, \Exception $ex){
+        $this->setExceptionHandler(function (IRequest $request, IResponse $response, \Exception $ex) {
 
         });
     }
@@ -202,14 +202,13 @@ class ControllerHandler implements IControllerHandler
                 $controller->request = $request;
                 $controller->response = $response;
                 $response_message = call_user_func_array(array($controller, $method), array());
-                yield $response_message;
-                if ($response_message instanceof IResponseMessage) {
-                    $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=utf-8'));
-                    // 这里就已经渲染了视图了，shit
-                    $response->withBody($response_message->toResponseBody());
-                } else {
+                if (!($response_message instanceof IResponseMessage)) {
                     throw new \ErrorException(sprintf('response message type: %s un support!', $response_message));
                 }
+                yield $response_message;
+                $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=utf-8'));
+                // 这里就已经渲染了视图了，shit
+                $response->withBody($response_message->toResponseBody());
             } catch (\Exception $ex) {
                 // 执行Controller 异常处理
                 if (call_user_func($this->exception_handler, $request, $response, $ex) !== true) {
@@ -224,7 +223,7 @@ class ControllerHandler implements IControllerHandler
         $message = null;
         // 前一个yield值将会被传入下一个handler
         foreach ($this->_handlers as $handler) {
-            if($handler == null){
+            if ($handler == null) {
                 continue;
             }
             $generator = call_user_func_array($handler, array($request, $response, $message));

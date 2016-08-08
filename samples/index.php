@@ -27,7 +27,6 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
     $token = $request->getQueryParameter("_token");
 
 
-
     yield true;
 
     // 整个请求的执行时间
@@ -40,7 +39,7 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
 // #7 设置Controller执行之后
 $http_app->setControllerPostHandler(function (\org\tessag\http\IRequest $request,
                                               \org\tessag\http\IResponse $response,
-                                              \org\tessag\http\IResponseMessage $responseMessage = null) {
+                                              \org\tessag\http\IResponseMessage $responseMessage) {
 //                                               $responseMessage) {
 });
 
