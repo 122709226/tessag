@@ -1,0 +1,20 @@
+# 全局忽略
+/target
+/*/target
+/*/*/target
+/*/*/*/target
+/*/*/*/*/target
+*.class
+
+# IDE intellij忽略
+*.iml
+/.idea/*.iml
+/.idea
+# IDE eclipse忽略
+/.myeclipse
+/.settings
+.classpath
+.mymetadata
+.project
+
+/vendor
