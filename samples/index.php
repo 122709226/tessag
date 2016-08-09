@@ -35,7 +35,7 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
     // #2 初始化会话
     $token = $request->getQueryParameter("_token");
 
-    yield false;
+    yield true;
 
     // 整个请求的执行时间
     $response->withHeader("X-Run-Time", (microtime(true) - $start_time) * 1000);
