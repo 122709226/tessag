@@ -14,7 +14,7 @@ interface IRouter
 
     public function bindControllerPostfix($postfix);
 
-    public function bindIndex($uri);
+    public function bindIndexURI($uri);
 
     public function getControllerClass(IRequest $request);
 

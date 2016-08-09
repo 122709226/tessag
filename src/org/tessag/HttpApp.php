@@ -3,6 +3,7 @@ namespace org\tessag;
 
 use org\tessag\context\routing\IRouter;
 use org\tessag\exception\ClassNotFoundException;
+use org\tessag\exception\TessagException;
 use org\tessag\http\fpm\HttpRequest;
 use org\tessag\http\fpm\HttpResponse;
 use org\tessag\http\IRequest;
@@ -127,12 +128,11 @@ class HttpApp
     /**
      * 注册命名空间
      *
-     * @param $namespace
      * @param $path
      */
-    public static function registerNamespaceV2($namespace, $path)
+    public static function registerNamespacePathV2($path)
     {
-        spl_autoload_register(function ($classname) use ($namespace, $path) {
+        spl_autoload_register(function ($classname) use ($path) {
             $filename = $path . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
             // 必须检查，否则会报出错误
             if (!file_exists($filename)) {
@@ -191,7 +191,7 @@ class ControllerHandler implements IControllerHandler
     private $exception_handler;
 
     private $_handlers = array(
-        null, null, null, null
+        null, null, null
     );
 
     public function invoke(IRequest $request, IResponse $response, $class, $method)
@@ -199,6 +199,7 @@ class ControllerHandler implements IControllerHandler
         $this->_handlers[1] = function (IRequest $request, IResponse $response) use ($class, $method) {
             try {
                 $controller = new $class();
+
                 $controller->request = $request;
                 $controller->response = $response;
                 $response_message = call_user_func_array(array($controller, $method), array());
@@ -209,7 +210,7 @@ class ControllerHandler implements IControllerHandler
                 $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=utf-8'));
                 // 这里就已经渲染了视图了，shit
                 $response->withBody($response_message->toResponseBody());
-            } catch (\Exception $ex) {
+            } catch (TessagException $ex) {
                 // 执行Controller 异常处理
                 if (call_user_func($this->exception_handler, $request, $response, $ex) !== true) {
                     throw $ex;
@@ -227,13 +228,16 @@ class ControllerHandler implements IControllerHandler
                 continue;
             }
             $generator = call_user_func_array($handler, array($request, $response, $message));
-            if ($generator && $generator instanceof \Generator) {
-                $stack[] = $generator;
+            if ($generator === false) {
+                break;
+            } else if ($generator instanceof \Generator) {
                 $message = $generator->current();
-                // 返回false 直接终止迭代
+                // yield false, 直接终止流程
                 if ($message === false) {
                     throw new \ErrorException('yield 表达式返回了false，流程终止!');
+//                    break;
                 }
+                $stack[] = $generator;
             }
         }
 

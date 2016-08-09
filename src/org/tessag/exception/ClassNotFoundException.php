@@ -6,6 +6,6 @@
  */
 namespace org\tessag\exception;
 
-class ClassNotFoundException extends TessagException
+class ClassNotFoundException extends \RuntimeException
 {
 }

@@ -1,5 +1,6 @@
 <?php
 namespace controller;
+
 use org\tessag\http\message\JSONMessage;
 
 /**
@@ -12,9 +13,14 @@ class JsonController
 
     public function get()
     {
-        return new JSONMessage(array(
+        $json = new JSONMessage(array(
             'test' => 1
         ));
+        $json['test1'] = 2;
+        $json['test'] = 2;
+        $json[] = 3;
+        $json['test'] = "pass";
+        return $json;
     }
 
 }

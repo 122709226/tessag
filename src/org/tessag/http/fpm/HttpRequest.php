@@ -42,6 +42,10 @@ final class HttpRequest implements IRequest
         return isset($params[$name]) ? $params[$name] : '';
     }
 
+    public function isAjax()
+    {
+        // TODO: Implement isAjax() method.
+    }
 
     public function getHeaders()
     {

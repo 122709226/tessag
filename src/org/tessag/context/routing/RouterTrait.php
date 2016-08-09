@@ -12,7 +12,7 @@ trait RouterTrait
 
     public function bindNamespacePath($path)
     {
-        $this->_path = $path;
+        $this->_path = strpos($path, '\\', 0) !== 0 ? '\\' . $path : $path;
     }
 
     public function bindControllerPostfix($postfix)
@@ -20,8 +20,8 @@ trait RouterTrait
         return $this->_postfix = $postfix;
     }
 
-    public function bindIndex($uri)
+    public function bindIndexURI($uri)
     {
-        $this->_index_uri = $uri;
+        $this->_index_uri = strpos($uri, '/', 0) !== 0 ? '/' . $uri : $uri;
     }
 }

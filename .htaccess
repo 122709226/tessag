@@ -13,8 +13,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule ^ index.php [L]
-    RewriteRule ^/ /examples/index.php [L]
-    RewriteRule ^ /examples/index.php [L]
+    RewriteRule ^/ /samples/index.php [L]
+    RewriteRule ^ /samples/index.php [L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
