@@ -1,6 +1,7 @@
 <?php
 define("ROOT_DIR", __DIR__);            // 定义根目录
 define("DEBUG", true);                  // 启动debug模式
+define("ENCODING", 'utf-8');                  // 启动debug模式
 
 var_dump($_SERVER);exit;
 // #1 Autoload 自动载入

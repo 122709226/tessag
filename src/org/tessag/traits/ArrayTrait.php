@@ -25,7 +25,7 @@ trait ArrayTrait
         if (is_null($offset)) {
             $offset = count($this->_data);
             if (array_key_exists($offset, $this->_data)) {
-                throw new \ErrorException(sprintf("error，[]和[%d]不能使用！请使用[],[],[],[], 或者[%d]值小于等于%d",
+                throw new \ErrorException(sprintf("error! []和[%d]不能使用！请使用[],[],[],[], 或者[%d]值小于等于%d",
                     $offset, $offset, $offset - 1));
             }
         }

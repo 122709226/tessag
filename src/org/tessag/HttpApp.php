@@ -3,6 +3,7 @@ namespace org\tessag;
 
 use org\tessag\exception\ClassNotFoundException;
 use org\tessag\exception\TessagException;
+use org\tessag\exception\UnSupportException;
 use org\tessag\http\fpm\Cookie;
 use org\tessag\http\fpm\HttpRequest;
 use org\tessag\http\fpm\HttpResponse;
@@ -142,7 +143,7 @@ final class HttpApp
             // 必须检查，否则会报出错误
             if (!file_exists($filename)) {
 //                throw new \RuntimeException(sprintf('Class %s does not exist', $classname), ExceptionCode::CLASS_NOT_FOUND);
-                throw new ClassNotFoundException(sprintf('Class %s does not exist', $classname));
+                throw new ClassNotFoundException(sprintf('Class %s does not exist!', $classname));
             }
             require $filename;
         });
@@ -209,10 +210,12 @@ final class ControllerHandler implements IControllerHandler
                 $controller->response = $response;
                 $response_message = call_user_func_array(array($controller, $method), array($request));
                 if (!($response_message instanceof IResponseMessage)) {
-                    throw new \ErrorException(sprintf('response message type: %s un support!', $response_message));
+                    throw new UnSupportException(
+                        sprintf('Dose not provide support for the response message of type: %s!', $response_message)
+                    );
                 }
                 yield $response_message;
-                $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=utf-8'));
+                $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=' . ENCODING));
                 // 这里就已经渲染了视图了，shit
                 $response->withBody($response_message->toResponseBody());
             } catch (TessagException $ex) {
@@ -240,8 +243,8 @@ final class ControllerHandler implements IControllerHandler
                 $message = $generator->current();
                 // yield false, 直接终止流程
                 if ($message === false) {
-                    throw new \ErrorException('yield 表达式返回了false，流程终止!');
-                    //break;
+                    // power by baidufanyi, hahahahhahah
+                    throw new \ErrorException('Yield expression returned to the false, process termination!');
                 }
                 $stack[] = $generator;
             }

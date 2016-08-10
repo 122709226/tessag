@@ -31,7 +31,7 @@ final class RESTful implements IRouter
         $method = strtolower($request->getMethod());
         if($override_method = $request->getQueryParameter("_method")){
             if (!in_array($override_method, array('put', 'delete'))) {
-                throw new UnSupportException(sprintf("http method:%s 暂不支持", $override_method),
+                throw new UnSupportException(sprintf("Http method : %s , does not support!", $override_method),
                     ExceptionCode::UN_SUPPORT_METHOD);
             }
             return $override_method;
@@ -39,7 +39,7 @@ final class RESTful implements IRouter
         if ($method === 'post') {
             if ($override_method = $request->getHeader('x-http-method-override')) {
                 if (!in_array($override_method, array('put', 'delete'))) {
-                    throw new UnSupportException(sprintf("http method:%s 暂不支持", $override_method),
+                    throw new UnSupportException(sprintf("Http method : %s , does not support!", $override_method),
                         ExceptionCode::UN_SUPPORT_METHOD);
                 }
                 return $override_method;

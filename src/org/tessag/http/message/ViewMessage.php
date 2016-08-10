@@ -58,7 +58,7 @@ class ViewMessage implements IResponseMessage
         $instance = self::_getInstance();
         $path = $instance->_view_root_path . DIRECTORY_SEPARATOR . $view_name . ".html";
         if (!file_exists($path)) {
-            throw new NotFoundException(sprintf("path:%s file not found.", $path));
+            throw new NotFoundException(sprintf("Class path:%s , file not found.", $path));
         }
         $instance->_path = $path;
         $instance->_stream = new ResourceStream(fopen($path, 'r'), true, true, false);
@@ -70,7 +70,7 @@ class ViewMessage implements IResponseMessage
         $instance = self::_getInstance();
         $path = $instance->_view_root_path . DIRECTORY_SEPARATOR . $view_name . ".php";
         if (!file_exists($path)) {
-            throw new NotFoundException(sprintf("path:%s file not found.", $path));
+            throw new NotFoundException(sprintf("File path:%s , file not found.", $path));
         }
         $instance->_path = $path;
         return $instance;

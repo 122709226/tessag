@@ -61,7 +61,7 @@ final class ResourceStream implements StreamInterface
     {
         $position = ftell($this->stream);
         if ($position === false) {
-            throw new \RuntimeException("get position failed of stream.");
+            throw new \RuntimeException("Get position failed of stream.");
         }
         return $position;
     }
@@ -79,7 +79,7 @@ final class ResourceStream implements StreamInterface
     public function seek($offset, $whence = SEEK_SET)
     {
         if (fseek($this->stream, $offset, $whence) === -1) {
-            throw new \RuntimeException("the stream set seek on failure.");
+            throw new \RuntimeException("The stream set seek on failure.");
         }
     }
 
@@ -96,11 +96,11 @@ final class ResourceStream implements StreamInterface
     public function write($string)
     {
         if (!$this->isWritable()) {
-            throw new \RuntimeException("the stream is not enable write.");
+            throw new \RuntimeException("The stream is not enable write.");
         }
         $char_size = fwrite($this->stream, $string);
         if ($char_size === false) {
-            throw new \RuntimeException("write on failure.");
+            throw new \RuntimeException("Write on failure.");
         }
         return $char_size;
     }
@@ -113,23 +113,23 @@ final class ResourceStream implements StreamInterface
     public function read($length)
     {
         if (!$this->isReadable()) {
-            throw new \RuntimeException("the stream is not enable read.");
+            throw new \RuntimeException("The stream is not enable read.");
         }
         $content = fread($this->stream, $length);
         if ($content === false) {
-            throw new \RuntimeException("read on failure.");
+            throw new \RuntimeException("Read on failure.");
         }
     }
 
     public function getContents()
     {
         if (!$this->isReadable()) {
-            throw new \RuntimeException('unable to read or an error occurs while reading!');
+            throw new \RuntimeException('Unable to read or an error occurs while reading!');
         }
         $this->rewind();
         $content = stream_get_contents($this->stream);
         if ($content === false) {
-            throw new \RuntimeException("stream get contents on failure.");
+            throw new \RuntimeException("The stream get contents on failure.");
         }
         return $content;
     }

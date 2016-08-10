@@ -106,12 +106,12 @@ final class HttpRequest implements IRequest
 
     public function withAddedHeader($name, $value)
     {
-        // TODO: Implement withAddedHeader() method.
+        throw new \ErrorException('what the fuck?!');
     }
 
     public function withoutHeader($name)
     {
-        // TODO: Implement withoutHeader() method.
+        throw new \ErrorException('what the fuck?!');
     }
 
     public function getBody()
@@ -152,7 +152,7 @@ final class HttpRequest implements IRequest
 
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
-        // TODO: Implement withUri() method.
+        throw new \ErrorException('what the fuck?!');
     }
 
     public function getServerParams()
@@ -162,12 +162,12 @@ final class HttpRequest implements IRequest
 
     public function getCookieParams()
     {
-
+		return $_COOKIE;
     }
 
     public function withCookieParams(array $cookies)
     {
-
+		throw new \ErrorException('what the fuck?!');
     }
 
     public function getQueryParams()
@@ -177,7 +177,7 @@ final class HttpRequest implements IRequest
 
     public function withQueryParams(array $query)
     {
-        // TODO: Implement withQueryParams() method.
+        throw new \ErrorException('what the fuck?!');
     }
 
     public function getUploadedFiles()
@@ -187,7 +187,7 @@ final class HttpRequest implements IRequest
 
     public function withUploadedFiles(array $uploadedFiles)
     {
-        // TODO: Implement withUploadedFiles() method.
+        throw new \ErrorException('what the fuck?!');
     }
 
     public function getParsedBody()
