@@ -1,7 +1,7 @@
 <?php
 namespace org\tessag\http;
 
-class HttpStatus
+final class HttpStatus
 {
     const SWITCHING_PROTOCOLS = 101;
     const PROCESSING = 102;

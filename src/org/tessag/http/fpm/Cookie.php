@@ -8,14 +8,21 @@ namespace org\tessag\http\fpm;
 
 final class Cookie
 {
-    private $domain = "";
-    private $maxAge = -1;
-    private $path = "";
-    private $isHttpOnly = false;
+    private $_name;
+    private $_value;
 
-    private function __construct($name, $value)
+    private $_domain = "";
+    private $_max_age = -1;
+    private $_path = "";
+    private $_secure;
+    private $_is_http_only = false;
+
+    private $_expire;
+
+    public function __construct($name, $value)
     {
-
+        $this->_name = $name;
+        $this->_value = $value;
     }
 
     public static function on($name, $value)
@@ -24,19 +31,35 @@ final class Cookie
     }
 
     /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->_value;
+    }
+
+    /**
      * @return string
      */
     public function getDomain()
     {
-        return $this->domain;
+        return $this->_domain;
     }
 
     /**
-     * @param string $domain
+     * @param string $_domain
      */
-    public function setDomain($domain)
+    public function setDomain($_domain)
     {
-        $this->domain = $domain;
+        $this->_domain = $_domain;
     }
 
     /**
@@ -44,15 +67,15 @@ final class Cookie
      */
     public function getMaxAge()
     {
-        return $this->maxAge;
+        return $this->_max_age;
     }
 
     /**
-     * @param int $maxAge
+     * @param int $_max_age
      */
-    public function setMaxAge($maxAge)
+    public function setMaxAge($_max_age)
     {
-        $this->maxAge = $maxAge;
+        $this->_max_age = $_max_age;
     }
 
     /**
@@ -60,31 +83,59 @@ final class Cookie
      */
     public function getPath()
     {
-        return $this->path;
+        return $this->_path;
     }
 
     /**
-     * @param string $path
+     * @param string $_path
      */
-    public function setPath($path)
+    public function setPath($_path)
     {
-        $this->path = $path;
+        $this->_path = $_path;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecure()
+    {
+        return $this->_secure;
+    }
+
+    /**
+     */
+    public function isSecure()
+    {
+        $this->_secure = true;
     }
 
     /**
      * @return boolean
      */
-    public function isIsHttpOnly()
+    public function getHttpOnly()
     {
-        return $this->isHttpOnly;
+        return $this->_is_http_only;
+    }
+
+    public function isHttpOnly()
+    {
+        $this->_is_http_only = true;
     }
 
     /**
-     * @param boolean $isHttpOnly
+     * @return mixed
      */
-    public function setIsHttpOnly($isHttpOnly)
+    public function getExpire()
     {
-        $this->isHttpOnly = $isHttpOnly;
+        return $this->_expire === null ?: time() + $this->_expire;
+    }
+
+    /**
+     * @param mixed $expire
+     */
+    public function setExpire($expire)
+    {
+        $this->_expire += intval($expire);
     }
 
 }

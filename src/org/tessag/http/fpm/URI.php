@@ -6,12 +6,10 @@
  */
 
 namespace org\tessag\http\fpm;
-;
-
 
 use Psr\Http\Message\UriInterface;
 
-class URI implements UriInterface
+final class URI implements UriInterface
 {
     private $path;
 

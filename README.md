@@ -1,6 +1,11 @@
 # 说明：
     不支持Apache多线程模式运行
 
+# composer:
+    "require": {
+        "pandaxia/tessag": "dev-master"
+    }
+
 # 执行过程：
     具体代码见：samples/index.php
 

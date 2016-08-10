@@ -4,7 +4,6 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
-
 namespace tests\tessag\http\fpm;
 
 class URITest extends \PHPUnit_Framework_TestCase {

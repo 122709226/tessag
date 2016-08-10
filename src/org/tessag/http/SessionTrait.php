@@ -11,18 +11,12 @@ trait SessionTrait
 {
     protected $_token;
     protected $_login_id;
-//    protected $_ttl = 3600;
 
     public function __construct($token = '')
     {
         $this->_token = $token;
         $this->withLogin($token);
     }
-
-//    public function expireTTL($ttl)
-//    {
-//        $this->_ttl = $ttl;
-//    }
 
     public function getToken()
     {

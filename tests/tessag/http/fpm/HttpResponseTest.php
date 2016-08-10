@@ -5,6 +5,7 @@
  * @coding.net https://coding.net/u/pandaxia
  */
 namespace tests\tessag\http\fpm;
-class HttpResponseTest extends PHPUnit_Framework_TestCase {
+
+class HttpResponseTest extends \PHPUnit_Framework_TestCase {
 
 }

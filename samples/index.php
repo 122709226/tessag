@@ -2,6 +2,7 @@
 define("ROOT_DIR", __DIR__);            // 定义根目录
 define("DEBUG", true);                  // 启动debug模式
 
+var_dump($_SERVER);exit;
 // #1 Autoload 自动载入
 require ROOT_DIR . '/../vendor/autoload.php';
 
@@ -30,6 +31,20 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
                                              \org\tessag\http\IResponse $response) {
     // 开始执行的时间
     $start_time = microtime(true);
+    yield true;
+    // 整个请求的执行时间
+    $response->withHeader("X-Run-Time", (microtime(true) - $start_time) * 1000);
+
+    // 视图渲染完成
+    // 剩下的就是php最后一步操作，直接执行php输出页面的逻辑
+    // TODO 这里可以写正常请求结束的日志
+});
+
+// #7 设置Controller执行之后
+$http_app->setControllerPostHandler(function (\org\tessag\http\IRequest $request,
+                                              \org\tessag\http\IResponse $response,
+                                              \org\tessag\http\IResponseMessage $responseMessage) {
+//                                               $responseMessage) {
     // #1 设置请求id
     $request->withAttribute('request_id', uniqid('request_id' . $start_time));
     // #2 初始化会话
@@ -40,22 +55,6 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
     // 设置会话到当前request
     $request->withSession($session);
     //$token = $request->getQueryParameter("_token");
-
-    yield true;
-
-    // 整个请求的执行时间
-    $response->withHeader("X-Run-Time", (microtime(true) - $start_time) * 1000);
-    // 视图渲染完成
-
-    // 剩下的就是php最后一步操作，直接执行php输出页面的逻辑
-    // TODO 这里可以写正常请求结束的日志
-});
-
-// #7 设置Controller执行之后
-$http_app->setControllerPostHandler(function (\org\tessag\http\IRequest $request,
-                                              \org\tessag\http\IResponse $response,
-                                              \org\tessag\http\IResponseMessage $responseMessage) {
-//                                               $responseMessage) {
 });
 
 // #8 设置Controller的异常handler

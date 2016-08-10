@@ -12,7 +12,7 @@ use org\tessag\http\IRequest;
 use org\tessag\routing\IRouter;
 use org\tessag\routing\RouterTrait;
 
-class RESTful implements IRouter
+final class RESTful implements IRouter
 {
     use RouterTrait;
 

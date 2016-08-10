@@ -7,9 +7,8 @@
 
 namespace org\tessag\http;
 
-interface ISession {
-
-//    public function expireTTL($ttl);
+interface ISession
+{
 
     public function getToken();
 
@@ -22,4 +21,5 @@ interface ISession {
     public function joinLogin($login_id);
 
     public function loginOut();
+
 }

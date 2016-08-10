@@ -3,6 +3,7 @@ namespace org\tessag;
 
 use org\tessag\exception\ClassNotFoundException;
 use org\tessag\exception\TessagException;
+use org\tessag\http\fpm\Cookie;
 use org\tessag\http\fpm\HttpRequest;
 use org\tessag\http\fpm\HttpResponse;
 use org\tessag\http\IRequest;
@@ -11,18 +12,18 @@ use org\tessag\http\IResponseMessage;
 use org\tessag\http\message\ViewMessage;
 use org\tessag\routing\IRouter;
 
-class HttpApp
+final class HttpApp
 {
     private static $app = null;
 
-    private $controller;
-    private $router;
-    private $exceptionHandler;
+    private $_controller;
+    private $_router;
+    private $_exception_handler;
 
     private function __construct(IRouter $router)
     {
-        $this->router = $router;
-        $this->controller = new ControllerHandler();
+        $this->_router = $router;
+        $this->_controller = new ControllerHandler();
         $this->setControllerExceptionHandler(function (IRequest $request, IResponse $response, \Exception $ex) {
 
         });
@@ -47,19 +48,19 @@ class HttpApp
         $request = new HttpRequest();
         $response = new HttpResponse();
         try {
-            $class = $this->router->getControllerClass($request);
-            $method = $this->router->getControllerMethod($request);
+            $class = $this->_router->getControllerClass($request);
+            $method = $this->_router->getControllerMethod($request);
             // 执行
-            $this->controller->invoke($request, $response, $class, $method);
+            $this->_controller->invoke($request, $response, $class, $method);
         } catch (\Exception $ex) {
-            if (call_user_func($this->exceptionHandler, $request, $response, $ex) !== true) {
+            if (call_user_func($this->_exception_handler, $request, $response, $ex) !== true) {
                 throw $ex;
             }
         } finally {
             try {
-                $this->sent($response);
+                $this->_sent($response);
             } catch (\Exception $ex) {
-                if (call_user_func($this->exceptionHandler, $request, $response, $ex) !== true) {
+                if (call_user_func($this->_exception_handler, $request, $response, $ex) !== true) {
                     throw $ex;
                 }
             }
@@ -85,25 +86,25 @@ class HttpApp
 
     public function setExceptionHandler(callable $error)
     {
-        $this->exceptionHandler = $error;
+        $this->_exception_handler = $error;
     }
 
     public function setControllerExceptionHandler(callable $handle)
     {
-        $this->controller->setExceptionHandle($handle);
+        $this->_controller->setExceptionHandle($handle);
     }
 
     public function setControllerPreHandler(callable $handle)
     {
-        $this->controller->applyPreHandle($handle);
+        $this->_controller->applyPreHandle($handle);
     }
 
     public function setControllerPostHandler(callable $handle)
     {
-        $this->controller->applyPostHandle($handle);
+        $this->_controller->applyPostHandle($handle);
     }
 
-    private function sent(IResponse $response)
+    private function _sent(IResponse $response)
     {
         if (!headers_sent()) {
             $code = $response->getStatusCode();
@@ -116,8 +117,10 @@ class HttpApp
                 }
                 header(sprintf('%s: %s', $key, $value));
             }
-            // TODO writer cookie
-
+            foreach ($response->getCookies() as $cookie) {
+                setCookie($cookie->getName(), $cookie->getValue(), $cookie->getExpire(), $cookie->getPath(),
+                    $cookie->getDomain(), $cookie->getSecure(), $cookie->getHttpOnly());
+            }
         }
         $stream = $response->getBody();
         // 发送response body
@@ -188,9 +191,9 @@ interface IControllerHandler
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia\
  */
-class ControllerHandler implements IControllerHandler
+final class ControllerHandler implements IControllerHandler
 {
-    private $exception_handler;
+    private $_exception_handler;
 
     private $_handlers = array(
         null, null, null
@@ -214,7 +217,7 @@ class ControllerHandler implements IControllerHandler
                 $response->withBody($response_message->toResponseBody());
             } catch (TessagException $ex) {
                 // 执行Controller 异常处理
-                if (call_user_func($this->exception_handler, $request, $response, $ex) !== true) {
+                if (call_user_func($this->_exception_handler, $request, $response, $ex) !== true) {
                     throw $ex;
                 }
             }
@@ -261,6 +264,6 @@ class ControllerHandler implements IControllerHandler
 
     public function setExceptionHandle(callable $handle)
     {
-        $this->exception_handler = $handle;
+        $this->_exception_handler = $handle;
     }
 }

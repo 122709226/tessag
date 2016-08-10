@@ -9,7 +9,7 @@ namespace org\tessag\http\streams;
 use org\tessag\exception\UnSupportException;
 use Psr\Http\Message\StreamInterface;
 
-class ResourceStream implements StreamInterface
+final class ResourceStream implements StreamInterface
 {
     private $stream;
     private $seekable;

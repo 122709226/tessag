@@ -6,5 +6,6 @@
  */
 namespace org\tessag\exception;
 
-class NotFoundException extends \RuntimeException{
+final class NotFoundException extends \RuntimeException
+{
 }

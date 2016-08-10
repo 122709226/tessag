@@ -7,8 +7,8 @@
 
 namespace org\tessag\http\fpm;;
 
-
 use org\tessag\exception\NotFoundException;
+use org\tessag\http\HttpStatus;
 use org\tessag\http\IResponse;
 use Psr\Http\Message\StreamInterface;
 
@@ -19,6 +19,7 @@ final class HttpResponse implements IResponse
     private $_headers = array();
 
     private $_stream = null;
+    private $_cookies = array();
 
     public function getProtocolVersion()
     {
@@ -70,6 +71,17 @@ final class HttpResponse implements IResponse
     {
         unset($this->_headers[$name]);
         return $this;
+    }
+
+    public function withCookie(Cookie $cookie)
+    {
+        $this->_cookies[] = $cookie;
+        return $this;
+    }
+
+    public function getCookies()
+    {
+        return $this->_cookies;
     }
 
     public function getBody()

@@ -6,6 +6,16 @@
  */
 namespace tests\tessag\routing\router;
 
-class RESTfulTest extends PHPUnit_Framework_TestCase {
+use org\tessag\routing\router\RESTful;
+
+class RESTfulTest extends \PHPUnit_Framework_TestCase
+{
+    private $instance;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->instance = new RESTful();
+    }
 
 }

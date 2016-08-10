@@ -8,7 +8,8 @@
 namespace org\tessag\exception;
 
 
-class ExceptionCode {
+interface ExceptionCode
+{
     const CLASS_NOT_FOUND = -1000;
     const UN_SUPPORT_METHOD = -1001;
 }

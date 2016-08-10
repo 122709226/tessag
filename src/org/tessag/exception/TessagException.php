@@ -7,6 +7,7 @@
 
 namespace org\tessag\exception;
 
-class TessagException extends \RuntimeException {
+class TessagException extends \RuntimeException
+{
 
 }

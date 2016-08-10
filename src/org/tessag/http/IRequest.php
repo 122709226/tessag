@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 interface IRequest extends ServerRequestInterface
 {
+
     public function getParameter($name);
 
     public function getQueryParameter($name);

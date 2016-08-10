@@ -6,6 +6,24 @@
  */
 namespace tests\tessag\http\fpm;
 
-class CookieTest extends PHPUnit_Framework_TestCase {
+use org\tessag\http\fpm\Cookie;
 
+class CookieTest extends \PHPUnit_Framework_TestCase
+{
+
+    private $instance;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->instance = new Cookie('foo', 'bar');
+    }
+
+    public function testCookie()
+    {
+        $this->assertEquals($this->instance->getName(), 'foo');
+
+        $this->assertEquals($this->instance->getValue(), 'bar');
+//        $this->assertEquals($this->instance->getName(), 'foo');
+    }
 }

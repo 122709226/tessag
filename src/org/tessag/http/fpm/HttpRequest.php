@@ -23,6 +23,12 @@ final class HttpRequest implements IRequest
     {
         $this->_uri = new URI();
 
+        // 截取所有的http头
+        foreach ($_SERVER as $key => $value) {
+            if (strpos($key, 'HTTP_') !== false) {
+                $this->_headers[str_replace('_', '-', substr($key, 5))] = $value;
+            }
+        }
     }
 
     public function getProtocolVersion()

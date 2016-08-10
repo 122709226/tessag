@@ -6,5 +6,6 @@
  */
 namespace org\tessag\exception;
 
-class UnSupportException extends \RuntimeException{
+final class UnSupportException extends \RuntimeException
+{
 }
