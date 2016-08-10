@@ -4,6 +4,7 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
+namespace tgdm\interfaces;
 
 interface ITable {
 
@@ -11,6 +12,6 @@ interface ITable {
 
     public function getFields();
 
-    public function getField($name);
+    //public function getField($name);
 
 }

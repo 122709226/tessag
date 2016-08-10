@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use org\tessag\http\IRequest;
 use org\tessag\http\message\ViewMessage;
 
 /**
@@ -11,7 +12,7 @@ use org\tessag\http\message\ViewMessage;
 class IndexController
 {
 
-    public function get()
+    public function get(IRequest $request)
     {
         $view = ViewMessage::bindViewName("test");
         $view->bindData("test", "xxx");

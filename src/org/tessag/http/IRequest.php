@@ -15,4 +15,8 @@ interface IRequest extends ServerRequestInterface
     public function getQueryParameter($name);
 
     public function isAjax();
+
+    public function getSession();
+
+    public function withSession(ISession $session);
 }

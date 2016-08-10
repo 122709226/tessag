@@ -7,33 +7,36 @@
 
 namespace org\tessag\http;
 
-trait SessionTrait {
+trait SessionTrait
+{
     protected $_token;
     protected $_login_id;
-    protected $_ttl = 3600;
+//    protected $_ttl = 3600;
 
     public function __construct($token = '')
     {
-        if($token){
-            $this->_token = $token;
-            $this->withLogin($token);
-        }
+        $this->_token = $token;
+        $this->withLogin($token);
     }
 
-    public function expireTTL($ttl){
-        $this->_ttl = $ttl;
-    }
+//    public function expireTTL($ttl)
+//    {
+//        $this->_ttl = $ttl;
+//    }
 
-    public function getToken(){
+    public function getToken()
+    {
         return $this->_token;
     }
 
-    public function getLoginId(){
+    public function getLoginId()
+    {
         return $this->_login_id;
     }
 
-    public function isAnonymous(){
-        return boolval($this->_login_id);
+    public function isAnonymous()
+    {
+        return !boolval($this->_login_id);
     }
 
     abstract protected function withLogin($token);

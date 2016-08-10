@@ -116,6 +116,8 @@ class HttpApp
                 }
                 header(sprintf('%s: %s', $key, $value));
             }
+            // TODO writer cookie
+
         }
         $stream = $response->getBody();
         // 发送response body
@@ -202,7 +204,7 @@ class ControllerHandler implements IControllerHandler
 
                 $controller->request = $request;
                 $controller->response = $response;
-                $response_message = call_user_func_array(array($controller, $method), array());
+                $response_message = call_user_func_array(array($controller, $method), array($request));
                 if (!($response_message instanceof IResponseMessage)) {
                     throw new \ErrorException(sprintf('response message type: %s un support!', $response_message));
                 }
@@ -228,6 +230,7 @@ class ControllerHandler implements IControllerHandler
                 continue;
             }
             $generator = call_user_func_array($handler, array($request, $response, $message));
+
             if ($generator === false) {
                 break;
             } else if ($generator instanceof \Generator) {
@@ -235,7 +238,7 @@ class ControllerHandler implements IControllerHandler
                 // yield false, 直接终止流程
                 if ($message === false) {
                     throw new \ErrorException('yield 表达式返回了false，流程终止!');
-//                    break;
+                    //break;
                 }
                 $stack[] = $generator;
             }

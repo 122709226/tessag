@@ -13,4 +13,5 @@ interface IResponseMessage
 
     public function getContentType();
 
+//    public function sendRedirect($url);
 }

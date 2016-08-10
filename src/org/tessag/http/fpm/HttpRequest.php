@@ -8,6 +8,7 @@
 namespace org\tessag\http\fpm;
 
 use org\tessag\http\IRequest;
+use org\tessag\http\ISession;
 use org\tessag\http\streams\ResourceStream;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
@@ -15,9 +16,13 @@ use Psr\Http\Message\UriInterface;
 final class HttpRequest implements IRequest
 {
     private $_uri;
+    private $_headers;
+    private $_session;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->_uri = new URI();
+
     }
 
     public function getProtocolVersion()
@@ -32,7 +37,7 @@ final class HttpRequest implements IRequest
 
     public function getParameter($name)
     {
-        $params = $this->getServerParams();
+        $params = $this->getParsedBody();
         return isset($params[$name]) ? $params[$name] : '';
     }
 
@@ -44,8 +49,27 @@ final class HttpRequest implements IRequest
 
     public function isAjax()
     {
-        // TODO: Implement isAjax() method.
+        if (strpos($this->getHeader('accept'), 'application/json') !== false) {
+            return true;
+        }
+
+        if (strpos($this->getHeader('X-Requested-With'), 'XMLHttpRequest') !== false) {
+            return true;
+        }
+
+        return false;
     }
+
+    public function getSession()
+    {
+        return $this->_session;
+    }
+
+    public function withSession(ISession $session)
+    {
+        $this->_session = $session;
+    }
+
 
     public function getHeaders()
     {
@@ -54,11 +78,14 @@ final class HttpRequest implements IRequest
 
     public function hasHeader($name)
     {
-
+        $headers = $this->getHeaders();
+        return isset($headers[$name]);
     }
 
     public function getHeader($name)
     {
+        $headers = $this->getHeaders();
+        return isset($headers[$name]) ? $headers[$name] : '';
     }
 
     public function getHeaderLine($name)
@@ -124,7 +151,7 @@ final class HttpRequest implements IRequest
 
     public function getServerParams()
     {
-
+        return $_SERVER;
     }
 
     public function getCookieParams()

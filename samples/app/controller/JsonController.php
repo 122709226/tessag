@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use org\tessag\http\IRequest;
 use org\tessag\http\message\JSONMessage;
 
 /**
@@ -11,8 +12,9 @@ use org\tessag\http\message\JSONMessage;
 class JsonController
 {
 
-    public function get()
+    public function get(IRequest $request)
     {
+
         $json = new JSONMessage(array(
             'test' => 1
         ));
@@ -20,6 +22,7 @@ class JsonController
         $json['test'] = 2;
         $json[] = 3;
         $json['test'] = "pass";
+        $json['test4'] = $request->getQueryParams();
         return $json;
     }
 

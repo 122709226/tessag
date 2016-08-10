@@ -4,9 +4,11 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
+namespace tgdm\interfaces;
 
 interface IField {
 
 
 
 }
+

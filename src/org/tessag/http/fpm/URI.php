@@ -5,78 +5,103 @@
  * @coding.net https://coding.net/u/pandaxia
  */
 
-namespace org\tessag\http\fpm;;
+namespace org\tessag\http\fpm;
+;
 
 
 use Psr\Http\Message\UriInterface;
 
-class URI implements UriInterface {
+class URI implements UriInterface
+{
+    private $path;
 
-    public function getScheme() {
+    public function __construct()
+    {
+        $this->path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    }
+
+    public function getScheme()
+    {
         return $_SERVER['REQUEST_SCHEME'];
     }
 
-    public function getAuthority() {
+    public function getAuthority()
+    {
 
     }
 
-    public function getUserInfo() {
+    public function getUserInfo()
+    {
 
     }
 
-    public function getHost() {
+    public function getHost()
+    {
         return $_SERVER['HTTP_HOST'];
     }
 
-    public function getPort() {
+    public function getPort()
+    {
         return $_SERVER['SERVER_PORT'];
     }
 
-    public function getPath() {
-        return $_SERVER['REDIRECT_URL'];
+    public function getPath()
+    {
+        return $this->path;
     }
 
-    public function getExtension() {
+    public function getExtension()
+    {
         pathinfo($this->getPath(), PATHINFO_EXTENSION);
     }
 
-    public function getQuery() {
+    public function getQuery()
+    {
         return $_GET;
     }
 
-    public function getFragment() {
+    public function getFragment()
+    {
 
     }
 
-    public function withScheme($scheme) {
+    public function withScheme($scheme)
+    {
 
     }
 
-    public function withUserInfo($user, $password = null) {
+    public function withUserInfo($user, $password = null)
+    {
 
     }
 
-    public function withHost($host) {
+    public function withHost($host)
+    {
 
     }
 
-    public function withPort($port) {
+    public function withPort($port)
+    {
 
     }
 
-    public function withPath($path) {
+    public function withPath($path)
+    {
 
     }
 
-    public function withQuery($query) {
+    public function withQuery($query)
+    {
 
     }
 
-    public function withFragment($fragment) {
+    public function withFragment($fragment)
+    {
 
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return "";
     }
 }

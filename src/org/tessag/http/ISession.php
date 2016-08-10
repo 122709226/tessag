@@ -9,7 +9,7 @@ namespace org\tessag\http;
 
 interface ISession {
 
-    public function expireTTL($ttl);
+//    public function expireTTL($ttl);
 
     public function getToken();
 
@@ -18,4 +18,8 @@ interface ISession {
     public function isAnonymous();
 
     public function getUserInfo();
+
+    public function joinLogin($login_id);
+
+    public function loginOut();
 }

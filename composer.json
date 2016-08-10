@@ -16,7 +16,6 @@
     "psr/http-message": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.5.0"
   },
   "archive": {
     "exclude": [
@@ -25,7 +24,7 @@
     ]
   },
   "autoload": {
-    "psr-4": {"org\\tessag\\": "src\\org\\tessag"},
+    "psr-4": {"org\\tessag\\": "src\\org\\tessag", "org\\tgdm\\" : "src\\org\\tgdm"},
     "files": [
       "src/constants.php"
     ]

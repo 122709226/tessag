@@ -6,10 +6,10 @@ define("DEBUG", true);                  // 启动debug模式
 require ROOT_DIR . '/../vendor/autoload.php';
 
 // #2 注册Controller使用的class 自动加载的路径, (也可以在composer.json->"autoload"->"psr-4" 节点下面配置，看个人喜好)
-\org\tessag\HttpApp::registerNamespacePathV2(ROOT_DIR . DIRECTORY_SEPARATOR . 'simple');
+\org\tessag\HttpApp::registerNamespacePathV2(ROOT_DIR . DIRECTORY_SEPARATOR . 'app');
 
 // #3 设置web视图的根目录(如果纯api，这里可以无视)
-\org\tessag\HttpApp::setViewRoot(ROOT_DIR . DIRECTORY_SEPARATOR . 'simple' . DIRECTORY_SEPARATOR . 'views');
+\org\tessag\HttpApp::setViewRoot(ROOT_DIR . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views');
 
 // #4 声明路由规则，另外还有jsonrpc可选,其它规则则需要自行拓展
 $router = new \org\tessag\context\routing\router\RESTful();
@@ -31,9 +31,15 @@ $http_app->setControllerPreHandler(function (\org\tessag\http\IRequest $request,
     // 开始执行的时间
     $start_time = microtime(true);
     // #1 设置请求id
-    $request->withAttribute("request_id", uniqid('request_id' . $start_time));
+    $request->withAttribute('request_id', uniqid('request_id' . $start_time));
     // #2 初始化会话
-    $token = $request->getQueryParameter("_token");
+    $session = new \base\Session();
+    if ($session->isAnonymous()) {
+        $session->joinLogin('1234');
+    }
+    // 设置会话到当前request
+    $request->withSession($session);
+    //$token = $request->getQueryParameter("_token");
 
     yield true;
 
