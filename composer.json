@@ -24,7 +24,7 @@
     ]
   },
   "autoload": {
-    "psr-4": {"org\\tessag\\": "src\\org\\tessag", "org\\tgdm\\" : "src\\org\\tgdm"},
+    "psr-4": {"org\\tessag\\": "src\\org\\tessag"},
     "files": [
       "src/constants.php"
     ]

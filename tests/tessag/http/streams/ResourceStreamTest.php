@@ -4,10 +4,8 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
+namespace tests\tessag\http\streams;
 
-namespace org\tessag;
-
-
-class HttpAppTest extends \PHPUnit_Framework_TestCase {
+class ResourceStreamTest extends PHPUnit_Framework_TestCase {
 
 }

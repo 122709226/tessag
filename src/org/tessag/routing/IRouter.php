@@ -4,7 +4,7 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
-namespace org\tessag\context\routing;
+namespace org\tessag\routing;
 
 use org\tessag\http\IRequest;
 

@@ -5,8 +5,7 @@
  * @coding.net https://coding.net/u/pandaxia
  */
 
-namespace org\tessag;
-
+namespace tests\tessag;
 
 class ControllerHandlerTest extends \PHPUnit_Framework_TestCase {
 

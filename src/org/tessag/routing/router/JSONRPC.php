@@ -4,11 +4,11 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
-namespace org\tessag\context\routing\router;
+namespace org\tessag\routing\router;
 
-use org\tessag\context\routing\IRouter;
-use org\tessag\context\routing\RouterTrait;
 use org\tessag\http\IRequest;
+use org\tessag\routing\IRouter;
+use org\tessag\routing\RouterTrait;
 
 class JSONRPC implements IRouter
 {

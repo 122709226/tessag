@@ -7,7 +7,6 @@
 
 namespace org\tessag\http\streams;
 
-
 use Psr\Http\Message\StreamInterface;
 
 class StringStream implements StreamInterface

@@ -1,0 +1,2 @@
+<phpunit bootstrap="../tessagbootstrap.php" colors="true">
+</phpunit>

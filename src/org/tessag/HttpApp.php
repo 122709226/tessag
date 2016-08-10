@@ -1,7 +1,6 @@
 <?php
 namespace org\tessag;
 
-use org\tessag\context\routing\IRouter;
 use org\tessag\exception\ClassNotFoundException;
 use org\tessag\exception\TessagException;
 use org\tessag\http\fpm\HttpRequest;
@@ -10,6 +9,7 @@ use org\tessag\http\IRequest;
 use org\tessag\http\IResponse;
 use org\tessag\http\IResponseMessage;
 use org\tessag\http\message\ViewMessage;
+use org\tessag\routing\IRouter;
 
 class HttpApp
 {

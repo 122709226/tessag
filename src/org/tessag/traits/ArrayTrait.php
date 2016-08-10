@@ -36,4 +36,9 @@ trait ArrayTrait
     {
         unset($this->_data[$offset]);
     }
+
+    public function toArray()
+    {
+        return $this->_data;
+    }
 }
