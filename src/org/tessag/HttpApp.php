@@ -142,7 +142,6 @@ final class HttpApp
             $filename = $path . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classname) . '.php';
             // 必须检查，否则会报出错误
             if (!file_exists($filename)) {
-//                throw new \RuntimeException(sprintf('Class %s does not exist', $classname), ExceptionCode::CLASS_NOT_FOUND);
                 throw new ClassNotFoundException(sprintf('Class %s does not exist!', $classname));
             }
             require $filename;
@@ -211,7 +210,8 @@ final class ControllerHandler implements IControllerHandler
                 $response_message = call_user_func_array(array($controller, $method), array($request));
                 if (!($response_message instanceof IResponseMessage)) {
                     throw new UnSupportException(
-                        sprintf('Dose not provide support for the response message of type: %s!', $response_message)
+//                        sprintf('Does not provide support for the response message of type: %s!', $response_message)
+                        sprintf("This type ' %s ' is not supported by response message!", $response_message)
                     );
                 }
                 yield $response_message;
@@ -244,7 +244,7 @@ final class ControllerHandler implements IControllerHandler
                 // yield false, 直接终止流程
                 if ($message === false) {
                     // power by baidufanyi, hahahahhahah
-                    throw new \ErrorException('Yield expression returned to the false, process termination!');
+                    throw new \ErrorException('Yield expression returned to the false, process is terminated!');
                 }
                 $stack[] = $generator;
             }

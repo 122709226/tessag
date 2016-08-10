@@ -8,4 +8,8 @@ namespace org\tessag\exception;
 
 final class NotFoundException extends \RuntimeException
 {
+    public function __construct($message = "", \Exception $previous = null)
+    {
+        parent::__construct($message, ExceptionCode::NOT_FOUND, $previous);
+    }
 }

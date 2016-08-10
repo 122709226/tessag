@@ -47,7 +47,7 @@ final class HttpResponse implements IResponse
         if ($this->hasHeader($name)) {
             return $this->_headers[$name];
         }
-        throw new NotFoundException(sprintf("header name : %s not found!", $name));
+        throw new NotFoundException(sprintf("Header name : %s , not found!", $name));
     }
 
     public function getHeaderLine($name)

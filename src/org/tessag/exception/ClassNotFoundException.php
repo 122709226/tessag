@@ -6,6 +6,13 @@
  */
 namespace org\tessag\exception;
 
+use Exception;
+
 final class ClassNotFoundException extends \RuntimeException
 {
+    public function __construct($message = "", \Exception $previous = null)
+    {
+        parent::__construct($message, ExceptionCode::CLASS_NOT_FOUND, $previous);
+    }
+
 }

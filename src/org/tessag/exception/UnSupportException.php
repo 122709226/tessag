@@ -6,6 +6,13 @@
  */
 namespace org\tessag\exception;
 
+use Exception;
+
 final class UnSupportException extends \RuntimeException
 {
+    public function __construct($message = "", \Exception $previous = null)
+    {
+        parent::__construct($message, ExceptionCode::UN_SUPPORT_METHOD, $previous);
+    }
+
 }
