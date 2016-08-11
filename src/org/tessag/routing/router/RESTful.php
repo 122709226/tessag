@@ -6,7 +6,6 @@
  */
 namespace org\tessag\routing\router;
 
-use org\tessag\exception\ExceptionCode;
 use org\tessag\exception\UnSupportException;
 use org\tessag\http\IRequest;
 use org\tessag\routing\IRouter;
@@ -46,6 +45,5 @@ final class RESTful implements IRouter
         }
         return 'get';
     }
-
 
 }

@@ -4,7 +4,6 @@ namespace org\tessag;
 use org\tessag\exception\ClassNotFoundException;
 use org\tessag\exception\TessagException;
 use org\tessag\exception\UnSupportException;
-use org\tessag\http\fpm\Cookie;
 use org\tessag\http\fpm\HttpRequest;
 use org\tessag\http\fpm\HttpResponse;
 use org\tessag\http\IRequest;
@@ -210,13 +209,11 @@ final class ControllerHandler implements IControllerHandler
                 $response_message = call_user_func_array(array($controller, $method), array($request));
                 if (!($response_message instanceof IResponseMessage)) {
                     throw new UnSupportException(
-//                        sprintf('Does not provide support for the response message of type: %s!', $response_message)
                         sprintf("This type ' %s ' is not supported by response message!", $response_message)
                     );
                 }
                 yield $response_message;
                 $response->withHeader("Content-Type", array($response_message->getContentType(), 'charset=' . ENCODING));
-                // 这里就已经渲染了视图了，shit
                 $response->withBody($response_message->toResponseBody());
             } catch (TessagException $ex) {
                 // 执行Controller 异常处理
@@ -243,7 +240,6 @@ final class ControllerHandler implements IControllerHandler
                 $message = $generator->current();
                 // yield false, 直接终止流程
                 if ($message === false) {
-                    // power by baidufanyi, hahahahhahah
                     throw new \ErrorException('Yield expression returned to the false, process is terminated!');
                 }
                 $stack[] = $generator;

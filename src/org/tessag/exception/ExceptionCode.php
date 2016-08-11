@@ -4,9 +4,7 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
-
 namespace org\tessag\exception;
-
 
 interface ExceptionCode
 {

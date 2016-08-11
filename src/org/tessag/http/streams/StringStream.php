@@ -4,7 +4,6 @@
  * @author panyao
  * @coding.net https://coding.net/u/pandaxia
  */
-
 namespace org\tessag\http\streams;
 
 use Psr\Http\Message\StreamInterface;
