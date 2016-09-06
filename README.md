@@ -2,7 +2,10 @@
     不支持Apache多线程模式运行
     
 # 介绍：
-    tessag是基于协程的PHP WEB框架，组件化思维，接口交互信息，易于扩展。因为使用了组件化，从router到controller只需要几个判断就可以实现request mapping。支持：自定义router，自定义异常处理，自定义controller执行钩子等等。内置：restful router，controller 响应JSONMessage、ViewMessage等等。
+    tessag是基于协程的PHP WEB框架，组件化思维，接口交互信息，易于扩展。
+    因为使用了组件化，从router到controller只需要几个判断就可以实现requestmapping。
+    支持：自定义router，自定义异常处理，自定义controller执行钩子等等。
+    内置：restful router，controller 响应JSONMessage、ViewMessage等等。
 
 # composer:
     "require": {
