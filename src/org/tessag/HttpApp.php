@@ -229,6 +229,7 @@ final class ControllerHandler implements IControllerHandler
         $message = null;
         // 前一个yield值将会被传入下一个handler
         foreach ($this->_handlers as $handler) {
+            // TODO 下次看到了，把整个流程再优化一下
             if ($handler == null) {
                 continue;
             }
